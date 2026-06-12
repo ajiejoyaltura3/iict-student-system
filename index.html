@@ -439,7 +439,8 @@
     </div>
 
     <script>
-        let studentsArray = JSON.parse(localStorage.getItem('iict_students')) || [
+        // METHOD 2: Using App Inventor Runtime Bridge
+        let studentsArray = [
             { id: "20260001", name: "Juan Dela Cruz", year: "Year Level 1" },
             { id: "20260002", name: "Maria Santos", year: "Year Level 2" },
             { id: "20260003", name: "John Paul Reyes", year: "Year Level 3" }
@@ -459,11 +460,30 @@
         const countY2 = document.getElementById('count-y2');
         const countY3 = document.getElementById('count-y3');
 
+        // Broadcast to MIT App Inventor TinyDB
         function syncDatabase() {
-            localStorage.setItem('iict_students', JSON.stringify(studentsArray));
             renderRecords(searchBar.value.trim());
             calculateMetrics();
+
+            // Native safety handshake link to MIT App Inventor Block Architecture
+            if (window.AppInventor && window.AppInventor.setWebViewString) {
+                window.AppInventor.setWebViewString(JSON.stringify(studentsArray));
+            }
         }
+
+        // Catch incoming database snapshots sent from MIT App Inventor TinyDB on application startup
+        window.loadNativeData = function(jsonDataString) {
+            if (jsonDataString) {
+                try {
+                    studentsArray = JSON.parse(jsonDataString);
+                    renderRecords();
+                    calculateMetrics();
+                    pushStatus("Synchronized data with device storage.");
+                } catch (e) {
+                    console.log("Failed parsing native dataset context.");
+                }
+            }
+        };
 
         function calculateMetrics() {
             countTotal.innerText = studentsArray.length;
@@ -602,7 +622,9 @@
             renderRecords(e.target.value.trim());
         });
 
-        syncDatabase();
+        // Initialize execution on load
+        calculateMetrics();
+        renderRecords();
     </script>
 </body>
 </html>
