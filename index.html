@@ -3,409 +3,617 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IICT Student System</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>IICT Student Information System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-purple: #7b2cbf;
-            --dark-purple: #5a189a;
-            --light-bg: #f3e5f5;
+            --bg-main: #f3f0fa;
+            --bg-sidebar: #fbfaff;
+            --primary-purple: #7b4fc3;
+            --primary-light: #f0e6ff;
+            --text-dark: #3a2a56;
+            --text-muted: #8c7fa6;
+            --border-color: #e2daf5;
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --btn-gray: #9e9e9e;
-            --btn-red: #b05a6a;
+            --btn-update: #9b6be6;
+            --btn-delete: #ef5350;
+            --btn-clear: #90a4ae;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
             display: flex;
             flex-direction: column;
-            align-items: center;
+            min-height: 100vh;
         }
 
-        header, .container, footer {
+        /* Responsive Layout for Mobile WebViewer */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            max-width: 500px;
-            margin-bottom: 20px;
+            flex: 1;
         }
 
-        .header-brand {
-            background-color: var(--card-bg);
-            padding: 15px;
+        /* Top Header Banner */
+        .header-banner {
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-light) 100%);
+            border: 1px solid var(--border-color);
             border-radius: 15px;
+            margin: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(123, 79, 195, 0.05);
+            position: relative;
+        }
+
+        .header-banner h1 {
+            font-size: 1.3rem;
+            color: var(--primary-purple);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-banner p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* Dashboard Counter Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 0 12px;
+            margin-bottom: 15px;
+        }
+
+        @media (min-width: 600px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            gap: 10px;
         }
 
-        .tech-logo {
-            font-size: 2.5rem;
+        .stat-icon {
+            background-color: var(--primary-light);
             color: var(--primary-purple);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
         }
 
-        .header-title h2 {
-            margin: 0;
-            font-size: 1.2rem;
-            color: var(--dark-purple);
-            letter-spacing: 1px;
+        .stat-info h3 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
-        .header-title p {
-            margin: 2px 0 0 0;
-            font-size: 0.85rem;
-            color: #666;
+        .stat-info p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Main Content Workspace */
+        .main-content {
+            padding: 0 12px 15px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(123, 79, 195, 0.03);
         }
 
         .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--dark-purple);
-            font-size: 1rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 12px;
-            color: var(--primary-purple);
-            font-size: 1.1rem;
-        }
-
-        .input-wrapper input, .input-wrapper select {
-            width: 100%;
-            padding: 12px 12px 12px 38px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
             font-size: 0.95rem;
-            outline: none;
-            box-sizing: border-box;
-            transition: 0.3s;
+            font-weight: 600;
+            color: var(--primary-purple);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--bg-main);
+            padding-bottom: 8px;
         }
 
-        .input-wrapper input:focus, .input-wrapper select:focus {
-            border-color: var(--primary-purple);
-            background-color: #fff;
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 12px;
         }
 
-        .button-grid {
+        .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background-color: var(--bg-sidebar);
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-purple);
+        }
+
+        /* Status Toast Message inside Form */
+        .form-status {
+            background-color: var(--primary-light);
+            color: var(--primary-purple);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Action Buttons Grid */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
         }
 
         .btn {
-            padding: 12px;
+            padding: 10px;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: white;
             cursor: pointer;
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            color: white;
-            text-transform: uppercase;
+            align-items: center;
+            gap: 6px;
             transition: opacity 0.2s;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .btn:active {
+            opacity: 0.8;
         }
 
-        .btn-save { background-color: #8a4fca; }
-        .btn-update { background-color: #9d2cb3; }
-        .btn-delete { background-color: var(--btn-red); }
-        .btn-clear { background-color: var(--btn-gray); }
+        .btn-add { background-color: var(--primary-purple); }
+        .btn-update { background-color: var(--btn-update); }
+        .btn-delete { background-color: var(--btn-delete); }
+        .btn-clear { background-color: var(--btn-clear); }
 
-        /* Search Layout */
-        .search-wrapper {
+        /* Records Viewer Section */
+        .search-container {
             position: relative;
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
-        .search-wrapper i {
+        .search-container input {
+            padding-right: 35px;
+        }
+
+        .search-container i {
             position: absolute;
-            left: 12px;
-            color: #aaa;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
-        .search-wrapper input {
-            width: 100%;
-            padding: 10px 10px 10px 35px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            outline: none;
-            background-color: #f5f5f5;
-            box-sizing: border-box;
-        }
-
-        /* Table Components */
-        .table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        th {
-            background-color: #8a4fca;
-            color: white;
-            padding: 10px;
-            font-weight: 500;
-            text-align: left;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .action-btns {
+        .records-list {
+            max-height: 280px;
+            overflow-y: auto;
             display: flex;
+            flex-direction: column;
             gap: 8px;
         }
 
-        .act-btn {
-            background: none;
-            border: none;
+        .record-item {
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-sidebar);
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .record-item.selected {
+            background-color: var(--primary-light);
+            border-color: var(--primary-purple);
+        }
+
+        .record-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .record-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: var(--border-color);
             color: var(--primary-purple);
-            cursor: pointer;
-            font-size: 1.1rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        .act-btn-delete {
-            color: var(--btn-red);
+        .record-info h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
-        footer {
-            text-align: center;
+        .record-info p {
             font-size: 0.75rem;
-            color: #777;
-            padding: 15px 0;
-            border-top: 1px solid #ddd;
+            color: var(--text-muted);
+        }
+
+        .badge-year {
+            background-color: var(--primary-light);
+            color: var(--primary-purple);
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+            margin-top: 2px;
+            display: inline-block;
+        }
+
+        .record-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-mini {
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .btn-mini-edit:hover {
+            color: var(--primary-purple);
+            border-color: var(--primary-purple);
+        }
+
+        .btn-mini-delete:hover {
+            color: var(--btn-delete);
+            border-color: var(--btn-delete);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        /* Bottom Status Footer Bar */
+        .footer-banner {
+            background-color: var(--primary-purple);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-brand">
-            <i class='bx bx-hive tech-logo'></i> 
-            <div class="header-title">
-                <h2>IICT STUDENT SYSTEM</h2>
-                <p>Dept. of Information & Communications Technology</p>
-            </div>
+    <div class="wrapper">
+        <div class="header-banner">
+            <h1>IICT STUDENT INFORMATION SYSTEM</h1>
+            <p>Celebrating the 48th Founding Anniversary</p>
+            <p style="font-size: 0.65rem; font-weight: 600; color: var(--primary-purple);">Isabela State University</p>
         </div>
-    </header>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-title">
-                <i class='bx bx-user-pin'></i> Student Information
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid ref fa-users"></i></div>
+                <div class="stat-info"><h3 id="count-total">0</h3><p>Total</p></div>
             </div>
-
-            <div class="input-group">
-                <label>Student ID</label>
-                <div class="input-wrapper">
-                    <i class='bx bx-id-card'></i>
-                    <input type="text" id="studentId" placeholder="Enter Student ID">
-                </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-user-grad"></i></div>
+                <div class="stat-info"><h3 id="count-y1">0</h3><p>Year 1</p></div>
             </div>
-
-            <div class="input-group">
-                <label>Student Name</label>
-                <div class="input-wrapper">
-                    <i class='bx bx-user'></i>
-                    <input type="text" id="studentName" placeholder="Enter Student Name">
-                </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-user-grad"></i></div>
+                <div class="stat-info"><h3 id="count-y2">0</h3><p>Year 2</p></div>
             </div>
-
-            <div class="input-group">
-                <label>Year Level</label>
-                <div class="input-wrapper">
-                    <i class='bx bx-layer'></i>
-                    <select id="yearLevel">
-                        <option value="">Select Year Level</option>
-                        <option value="1st Year">1st Year</option>
-                        <option value="2nd Year">2nd Year</option>
-                        <option value="3rd Year">3rd Year</option>
-                        <option value="4th Year">4th Year</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="button-grid">
-                <button class="btn btn-save" onclick="saveData()"><i class='bx bx-plus-circle'></i> Save</button>
-                <button class="btn btn-update" onclick="updateData()"><i class='bx bx-edit-alt'></i> Update</button>
-                <button class="btn btn-delete" onclick="deleteData()"><i class='bx bx-trash'></i> Delete</button>
-                <button class="btn btn-clear" onclick="clearInputs()"><i class='bx bx-refresh'></i> Clear</button>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-user-grad"></i></div>
+                <div class="stat-info"><h3 id="count-y3">0</h3><p>Year 3</p></div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-title">
-                <i class='bx bx-list-ul'></i> Student Records
-            </div>
+        <div class="main-content">
             
-            <div class="search-wrapper">
-                <i class='bx bx-search'></i>
-                <input type="text" id="searchField" placeholder="Search student..." onkeyup="filterTable()">
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-user-plus"></i> ADD / EDIT STUDENT</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="student-id">Student ID</label>
+                        <input type="text" id="student-id" placeholder="Enter ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="year-level">Year Level</label>
+                        <select id="year-level">
+                            <option value="">Select Year</option>
+                            <option value="Year Level 1">Year Level 1</option>
+                            <option value="Year Level 2">Year Level 2</option>
+                            <option value="Year Level 3">Year Level 3</option>
+                            <option value="Year Level 4">Year Level 4</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="student-name">Student Name</label>
+                    <input type="text" id="student-name" placeholder="Enter Full Name">
+                </div>
+
+                <div class="form-status" id="status-message">
+                    <i class="fa-solid fa-circle-info"></i> Fill in all fields to manage students.
+                </div>
+
+                <div class="btn-grid">
+                    <button class="btn btn-add" id="btn-add"><i class="fa-solid fa-plus"></i> Add</button>
+                    <button class="btn btn-update" id="btn-update"><i class="fa-solid fa-pen-to-square"></i> Update</button>
+                    <button class="btn btn-delete" id="btn-delete"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                    <button class="btn btn-clear" id="btn-clear"><i class="fa-solid fa-broom"></i> Clear</button>
+                </div>
             </div>
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Student ID</th>
-                            <th>Student Name</th>
-                            <th>Year Level</th>
-                            <th style="text-align: center;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="studentTableBody">
-                        </tbody>
-                </table>
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-database"></i> STUDENT RECORDS</div>
+                
+                <div class="search-container">
+                    <input type="text" id="search-bar" placeholder="Search by ID or Name...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div class="records-list" id="records-container">
+                    </div>
             </div>
+
+        </div>
+
+        <div class="footer-banner">
+            Building IT Excellence. Developing Future Innovators. &copy; 2026 IICT SIS
         </div>
     </div>
 
-    <footer>
-        <div>
-            <i class='bx bx-git-branch'></i> © 2026 IICT Dept. Student Info. System <br>
-            All rights reserved. Lab Activity 4 Wrapper
-        </div>
-    </footer>
-
     <script>
-        // Memory-based Array storage configuration
-        let students = [
-            { id: "240551", name: "Ajie Joy Altura", year: "2nd Year" },
-            { id: "2024001", name: "Juan Dela Cruz", year: "1st Year" },
-            { id: "2024002", name: "Maria Santos", year: "2nd Year" }
+        // Memory Array for Database Simulation (Pre-populated with your mock data)
+        let studentsArray = JSON.parse(localStorage.getItem('iict_students')) || [
+            { id: "20260001", name: "Juan Dela Cruz", year: "Year Level 1" },
+            { id: "20260002", name: "Maria Santos", year: "Year Level 2" },
+            { id: "20260003", name: "John Paul Reyes", year: "Year Level 3" }
         ];
 
-        // Core compilation table component injector
-        function renderTable() {
-            const tbody = document.getElementById("studentTableBody");
-            tbody.innerHTML = "";
+        let targetSelectedId = null;
 
-            students.forEach((student, index) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${student.id}</td>
-                    <td>${student.name}</td>
-                    <td>${student.year}</td>
-                    <td style="text-align: center;">
-                        <div class="action-btns" style="justify-content: center;">
-                            <button class="act-btn" onclick="selectRow('${student.id}', '${student.name.replace(/'/g, "\\'")}', '${student.year}')"><i class='bx bx-edit'></i></button>
-                            <button class="act-btn act-btn-delete" onclick="directDelete('${student.id}')"><i class='bx bx-trash'></i></button>
+        // DOM Element Cache Pointers
+        const inputId = document.getElementById('student-id');
+        const inputName = document.getElementById('student-name');
+        const inputYear = document.getElementById('year-level');
+        const searchBar = document.getElementById('search-bar');
+        const containerRecords = document.getElementById('records-container');
+        const statusBox = document.getElementById('status-message');
+
+        // Counters Dom Nodes
+        const countTotal = document.getElementById('count-total');
+        const countY1 = document.getElementById('count-y1');
+        const countY2 = document.getElementById('count-y2');
+        const countY3 = document.getElementById('count-y3');
+
+        // Synchronize and render database engine UI components
+        function syncDatabase() {
+            localStorage.setItem('iict_students', JSON.stringify(studentsArray));
+            renderRecords(searchBar.value.trim());
+            calculateMetrics();
+        }
+
+        function calculateMetrics() {
+            countTotal.innerText = studentsArray.length;
+            countY1.innerText = studentsArray.filter(s => s.year === "Year Level 1").length;
+            countY2.innerText = studentsArray.filter(s => s.year === "Year Level 2").length;
+            countY3.innerText = studentsArray.filter(s => s.year === "Year Level 3").length;
+        }
+
+        function pushStatus(text, isAction = false) {
+            statusBox.innerHTML = `<i class="fa-solid ${isAction ? 'fa-square-check' : 'fa-circle-info'}"></i> ${text}`;
+        }
+
+        function clearForm() {
+            inputId.value = "";
+            inputName.value = "";
+            inputYear.value = "";
+            targetSelectedId = null;
+            inputId.disabled = false;
+            
+            const activeRows = document.querySelectorAll('.record-item');
+            activeRows.forEach(row => row.classList.remove('selected'));
+            
+            pushStatus("Form fields cleared.");
+        }
+
+        // Render dataset onto layout DOM structure
+        function renderRecords(filterText = "") {
+            containerRecords.innerHTML = "";
+            const matches = studentsArray.filter(student => {
+                const query = filterText.toLowerCase();
+                return student.id.toLowerCase().includes(query) || student.name.toLowerCase().includes(query);
+            });
+
+            if (matches.length === 0) {
+                containerRecords.innerHTML = `<div class="no-data">No matching records located.</div>`;
+                return;
+            }
+
+            matches.forEach((student, index) => {
+                const itemRow = document.createElement('div');
+                itemRow.className = `record-item ${targetSelectedId === student.id ? 'selected' : ''}`;
+                
+                itemRow.innerHTML = `
+                    <div class="record-details">
+                        <div class="record-avatar">${index + 1}</div>
+                        <div class="record-info">
+                            <h4>${student.name}</h4>
+                            <p>ID: ${student.id}</p>
+                            <span class="badge-year">${student.year}</span>
                         </div>
-                    </td>
+                    </div>
+                    <div class="record-actions">
+                        <button class="btn-mini btn-mini-edit" onclick="setupEdit('${student.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
+                        <button class="btn-mini btn-mini-delete" onclick="triggerDirectDelete('${student.id}')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
                 `;
-                tbody.appendChild(row);
+                containerRecords.appendChild(itemRow);
             });
         }
 
-        // Active layout focus mapping selection system
-        function selectRow(id, name, year) {
-            document.getElementById("studentId").value = id;
-            document.getElementById("studentName").value = name;
-            document.getElementById("yearLevel").value = year;
-            document.getElementById("studentId").disabled = true; 
-        }
-
-        // Create operation
-        function saveData() {
-            const id = document.getElementById("studentId").value.trim();
-            const name = document.getElementById("studentName").value.trim();
-            const year = document.getElementById("yearLevel").value;
-
-            if (!id || !name || !year) {
-                alert("Please fill up all information fields correctly.");
-                return;
+        // Click Handler for Table Action Triggers
+        window.setupEdit = function(id) {
+            const student = studentsArray.find(s => s.id === id);
+            if (student) {
+                targetSelectedId = student.id;
+                inputId.value = student.id;
+                inputId.disabled = true; // Lock identity access key from runtime modification mutations
+                inputName.value = student.name;
+                inputYear.value = student.year;
+                pushStatus(`Loaded student profiles: ${student.name}`);
+                renderRecords(searchBar.value.trim());
             }
-            
-            if (students.some(s => s.id === id)) {
-                alert("Student ID already exists! Use UPDATE instead.");
-                return;
-            }
+        };
 
-            students.push({ id, name, year });
-            renderTable();
-            clearInputs();
-        }
+        window.triggerDirectDelete = function(id) {
+            studentsArray = studentsArray.filter(s => s.id !== id);
+            if(targetSelectedId === id) clearForm();
+            pushStatus("Target student record removed successfully.", true);
+            syncDatabase();
+        };
 
-        // Update operation
-        function updateData() {
-            const id = document.getElementById("studentId").value.trim();
-            const name = document.getElementById("studentName").value.trim();
-            const year = document.getElementById("yearLevel").value;
+        // Standard Operation Button Action Bindings
+        document.getElementById('btn-add').addEventListener('click', () => {
+            const idValue = inputId.value.trim();
+            const nameValue = inputName.value.trim();
+            const yearValue = inputYear.value;
 
-            if (!id || !name || !year) {
-                alert("Select a record sequence row to modify first.");
+            if (!idValue || !nameValue || !yearValue) {
+                pushStatus("Error: All fields must contain values before processing.");
                 return;
             }
 
-            const targetIndex = students.findIndex(s => s.id === id);
+            if (studentsArray.some(s => s.id === idValue)) {
+                pushStatus("Identity clash: Student reference number already exists.");
+                return;
+            }
 
+            studentsArray.push({ id: idValue, name: nameValue, year: yearValue });
+            pushStatus(`Added: ${nameValue}`, true);
+            clearForm();
+            syncDatabase();
+        });
+
+        document.getElementById('btn-update').addEventListener('click', () => {
+            if (!targetSelectedId) {
+                pushStatus("Operation Denied: Choose a listing record via 'Edit' before attempting updates.");
+                return;
+            }
+
+            const nameValue = inputName.value.trim();
+            const yearValue = inputYear.value;
+
+            if (!nameValue || !yearValue) {
+                pushStatus("Update Error: Input field parameters cannot be empty.");
+                return;
+            }
+
+            const targetIndex = studentsArray.findIndex(s => s.id === targetSelectedId);
             if (targetIndex !== -1) {
-                students[targetIndex].name = name;
-                students[targetIndex].year = year;
-                renderTable();
-                clearInputs();
-                alert("Record structural elements updated successfully.");
+                studentsArray[targetIndex].name = nameValue;
+                studentsArray[targetIndex].year = yearValue;
+                pushStatus(`Record update confirmed for: ${nameValue}`, true);
+                clearForm();
+                syncDatabase();
             }
-        }
+        });
 
-        // Form Delete connection proxy redirection
-        function deleteData() {
-            const id = document.getElementById("studentId").value.trim();
-            if (!id) {
-                alert("Input target identity ID value sequence to remove
+        document.getElementById('btn-delete').addEventListener('click', () => {
+            if (!targetSelectedId) {
+                pushStatus("Operation Denied: Select a data row target to perform deletion.");
+                return;
+            }
+            triggerDirectDelete(targetSelectedId);
+        });
+
+        document.getElementById('btn-clear').addEventListener('click', clearForm);
+        
+        searchBar.addEventListener('input', (e) => {
+            renderRecords(e.target.value.trim());
+        });
+
+        // Initialize First UI Paint Frame
+        syncDatabase();
+    </script>
+</body>
+</html>
