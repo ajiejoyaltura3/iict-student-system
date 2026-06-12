@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IICT Student Information System</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
@@ -37,7 +36,6 @@
             min-height: 100vh;
         }
 
-        /* Responsive Layout for Mobile WebViewer */
         .wrapper {
             display: flex;
             flex-direction: column;
@@ -45,7 +43,6 @@
             flex: 1;
         }
 
-        /* Top Header Banner */
         .header-banner {
             background: linear-gradient(135deg, #ffffff 0%, var(--primary-light) 100%);
             border: 1px solid var(--border-color);
@@ -54,11 +51,10 @@
             padding: 15px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(123, 79, 195, 0.05);
-            position: relative;
         }
 
         .header-banner h1 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--primary-purple);
             font-weight: 700;
             letter-spacing: 0.5px;
@@ -70,19 +66,12 @@
             margin-top: 3px;
         }
 
-        /* Dashboard Counter Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             padding: 0 12px;
             margin-bottom: 15px;
-        }
-
-        @media (min-width: 600px) {
-            .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
         }
 
         .stat-card {
@@ -104,7 +93,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1rem;
+        }
+
+        .stat-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary-purple);
         }
 
         .stat-info h3 {
@@ -120,7 +114,6 @@
             font-weight: 500;
         }
 
-        /* Main Content Workspace */
         .main-content {
             padding: 0 12px 15px 12px;
             display: flex;
@@ -148,7 +141,12 @@
             padding-bottom: 8px;
         }
 
-        /* Form Controls */
+        .card-title svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--primary-purple);
+        }
+
         .form-group {
             margin-bottom: 12px;
         }
@@ -176,14 +174,8 @@
             background-color: var(--bg-sidebar);
             color: var(--text-dark);
             outline: none;
-            transition: border-color 0.2s;
         }
 
-        input:focus, select:focus {
-            border-color: var(--primary-purple);
-        }
-
-        /* Status Toast Message inside Form */
         .form-status {
             background-color: var(--primary-light);
             color: var(--primary-purple);
@@ -196,7 +188,12 @@
             gap: 6px;
         }
 
-        /* Action Buttons Grid */
+        .form-status svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--primary-purple);
+        }
+
         .btn-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -204,10 +201,10 @@
         }
 
         .btn {
-            padding: 10px;
+            padding: 11px;
             border: none;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 500;
             color: white;
             cursor: pointer;
@@ -215,11 +212,12 @@
             justify-content: center;
             align-items: center;
             gap: 6px;
-            transition: opacity 0.2s;
         }
 
-        .btn:active {
-            opacity: 0.8;
+        .btn svg {
+            width: 14px;
+            height: 14px;
+            fill: white;
         }
 
         .btn-add { background-color: var(--primary-purple); }
@@ -227,23 +225,19 @@
         .btn-delete { background-color: var(--btn-delete); }
         .btn-clear { background-color: var(--btn-clear); }
 
-        /* Records Viewer Section */
         .search-container {
             position: relative;
             margin-bottom: 12px;
         }
 
-        .search-container input {
-            padding-right: 35px;
-        }
-
-        .search-container i {
+        .search-container svg {
             position: absolute;
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            width: 14px;
+            height: 14px;
+            fill: var(--text-muted);
         }
 
         .records-list {
@@ -262,7 +256,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.2s;
         }
 
         .record-item.selected {
@@ -323,17 +316,18 @@
             font-size: 0.75rem;
             cursor: pointer;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .btn-mini-edit:hover {
-            color: var(--primary-purple);
-            border-color: var(--primary-purple);
+        .btn-mini svg {
+            width: 12px;
+            height: 12px;
         }
 
-        .btn-mini-delete:hover {
-            color: var(--btn-delete);
-            border-color: var(--btn-delete);
-        }
+        .btn-mini-edit svg { fill: var(--primary-purple); }
+        .btn-mini-delete svg { fill: var(--btn-delete); }
 
         .no-data {
             text-align: center;
@@ -343,7 +337,6 @@
             font-style: italic;
         }
 
-        /* Bottom Status Footer Bar */
         .footer-banner {
             background-color: var(--primary-purple);
             color: white;
@@ -366,27 +359,29 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid ref fa-users"></i></div>
+                <div class="stat-icon"><svg viewBox="0 0 640 512"><path d="M144 160c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80zm352 0c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80zm-16 64h-64c-11 0-21.2 3.1-30 8.3 24.1 20 40 49.7 40 83.7 0 11.2-1.9 21.9-5.2 32h59.2c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-192 0c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h59.2c-3.3-10.1-5.2-20.8-5.2-32 0-34 15.9-63.7 40-83.7-8.8-5.2-19-8.3-30-8.3zm128 32c-53 0-96-43-96-96s43-96 96-96 96 43 96 96-43 96-96 96zm96 96c0-53-43-96-96-96s-96 43-96 96v48c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48v-48z"/></svg></div>
                 <div class="stat-info"><h3 id="count-total">0</h3><p>Total</p></div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-user-grad"></i></div>
+                <div class="stat-icon"><svg viewBox="0 0 448 512"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C34.3 288 0 322.3 0 364.8V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-99.2c0-42.5-34.3-76.8-74.4-76.8z"/></svg></div>
                 <div class="stat-info"><h3 id="count-y1">0</h3><p>Year 1</p></div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-user-grad"></i></div>
+                <div class="stat-icon"><svg viewBox="0 0 448 512"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C34.3 288 0 322.3 0 364.8V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-99.2c0-42.5-34.3-76.8-74.4-76.8z"/></svg></div>
                 <div class="stat-info"><h3 id="count-y2">0</h3><p>Year 2</p></div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-user-grad"></i></div>
+                <div class="stat-icon"><svg viewBox="0 0 448 512"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C34.3 288 0 322.3 0 364.8V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-99.2c0-42.5-34.3-76.8-74.4-76.8z"/></svg></div>
                 <div class="stat-info"><h3 id="count-y3">0</h3><p>Year 3</p></div>
             </div>
         </div>
 
         <div class="main-content">
-            
             <div class="card">
-                <div class="card-title"><i class="fa-solid fa-user-plus"></i> ADD / EDIT STUDENT</div>
+                <div class="card-title">
+                    <svg viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0 0 114.6 0 256s114.6 256 256 256zm116-292h-84v-84c0-11-9-20-20-20h-24c-11 0-20 9-20 20v84h-84c-11 0-20 9-20 20v24c0 11 9 20 20 20h84v84c0 11 9 20 20 20h24c11 0 20-9 20-20v84h84c11 0 20-9 20-20v-24c0-11-9-20-20-20z"/></svg>
+                    ADD / EDIT STUDENT
+                </div>
                 
                 <div class="form-row">
                     <div class="form-group">
@@ -411,29 +406,31 @@
                 </div>
 
                 <div class="form-status" id="status-message">
-                    <i class="fa-solid fa-circle-info"></i> Fill in all fields to manage students.
+                    <svg viewBox="0 0 512 512"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg>
+                    Fill in all fields to manage students.
                 </div>
 
                 <div class="btn-grid">
-                    <button class="btn btn-add" id="btn-add"><i class="fa-solid fa-plus"></i> Add</button>
-                    <button class="btn btn-update" id="btn-update"><i class="fa-solid fa-pen-to-square"></i> Update</button>
-                    <button class="btn btn-delete" id="btn-delete"><i class="fa-solid fa-trash-can"></i> Delete</button>
-                    <button class="btn btn-clear" id="btn-clear"><i class="fa-solid fa-broom"></i> Clear</button>
+                    <button class="btn btn-add" id="btn-add">Add</button>
+                    <button class="btn btn-update" id="btn-update">Update</button>
+                    <button class="btn btn-delete" id="btn-delete">Delete</button>
+                    <button class="btn btn-clear" id="btn-clear">Clear</button>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-title"><i class="fa-solid fa-database"></i> STUDENT RECORDS</div>
+                <div class="card-title">
+                    <svg viewBox="0 0 448 512"><path d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.571 224 48.571S399.875 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.571 224 48.571S399.875 369.143 448 336z"/></svg>
+                    STUDENT RECORDS
+                </div>
                 
                 <div class="search-container">
                     <input type="text" id="search-bar" placeholder="Search by ID or Name...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <svg viewBox="0 0 512 512"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.3-128-128s57.3-128 128-128 128 57.3 128 128-57.3 128-128 128z"/></svg>
                 </div>
 
-                <div class="records-list" id="records-container">
-                    </div>
+                <div class="records-list" id="records-container"></div>
             </div>
-
         </div>
 
         <div class="footer-banner">
@@ -442,7 +439,6 @@
     </div>
 
     <script>
-        // Memory Array for Database Simulation (Pre-populated with your mock data)
         let studentsArray = JSON.parse(localStorage.getItem('iict_students')) || [
             { id: "20260001", name: "Juan Dela Cruz", year: "Year Level 1" },
             { id: "20260002", name: "Maria Santos", year: "Year Level 2" },
@@ -451,7 +447,6 @@
 
         let targetSelectedId = null;
 
-        // DOM Element Cache Pointers
         const inputId = document.getElementById('student-id');
         const inputName = document.getElementById('student-name');
         const inputYear = document.getElementById('year-level');
@@ -459,13 +454,11 @@
         const containerRecords = document.getElementById('records-container');
         const statusBox = document.getElementById('status-message');
 
-        // Counters Dom Nodes
         const countTotal = document.getElementById('count-total');
         const countY1 = document.getElementById('count-y1');
         const countY2 = document.getElementById('count-y2');
         const countY3 = document.getElementById('count-y3');
 
-        // Synchronize and render database engine UI components
         function syncDatabase() {
             localStorage.setItem('iict_students', JSON.stringify(studentsArray));
             renderRecords(searchBar.value.trim());
@@ -480,7 +473,7 @@
         }
 
         function pushStatus(text, isAction = false) {
-            statusBox.innerHTML = `<i class="fa-solid ${isAction ? 'fa-square-check' : 'fa-circle-info'}"></i> ${text}`;
+            statusBox.innerHTML = `★ ${text}`;
         }
 
         function clearForm() {
@@ -496,7 +489,6 @@
             pushStatus("Form fields cleared.");
         }
 
-        // Render dataset onto layout DOM structure
         function renderRecords(filterText = "") {
             containerRecords.innerHTML = "";
             const matches = studentsArray.filter(student => {
@@ -523,24 +515,23 @@
                         </div>
                     </div>
                     <div class="record-actions">
-                        <button class="btn-mini btn-mini-edit" onclick="setupEdit('${student.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
-                        <button class="btn-mini btn-mini-delete" onclick="triggerDirectDelete('${student.id}')"><i class="fa-solid fa-trash"></i></button>
+                        <button class="btn-mini btn-mini-edit" onclick="setupEdit('${student.id}')">Edit</button>
+                        <button class="btn-mini btn-mini-delete" onclick="triggerDirectDelete('${student.id}')">Delete</button>
                     </div>
                 `;
                 containerRecords.appendChild(itemRow);
             });
         }
 
-        // Click Handler for Table Action Triggers
         window.setupEdit = function(id) {
             const student = studentsArray.find(s => s.id === id);
             if (student) {
                 targetSelectedId = student.id;
                 inputId.value = student.id;
-                inputId.disabled = true; // Lock identity access key from runtime modification mutations
+                inputId.disabled = true;
                 inputName.value = student.name;
                 inputYear.value = student.year;
-                pushStatus(`Loaded student profiles: ${student.name}`);
+                pushStatus(`Loaded profile: ${student.name}`);
                 renderRecords(searchBar.value.trim());
             }
         };
@@ -548,23 +539,22 @@
         window.triggerDirectDelete = function(id) {
             studentsArray = studentsArray.filter(s => s.id !== id);
             if(targetSelectedId === id) clearForm();
-            pushStatus("Target student record removed successfully.", true);
+            pushStatus("Student record removed.", true);
             syncDatabase();
         };
 
-        // Standard Operation Button Action Bindings
         document.getElementById('btn-add').addEventListener('click', () => {
             const idValue = inputId.value.trim();
             const nameValue = inputName.value.trim();
             const yearValue = inputYear.value;
 
             if (!idValue || !nameValue || !yearValue) {
-                pushStatus("Error: All fields must contain values before processing.");
+                pushStatus("Error: All fields must contain values.");
                 return;
             }
 
             if (studentsArray.some(s => s.id === idValue)) {
-                pushStatus("Identity clash: Student reference number already exists.");
+                pushStatus("Clash: Student ID already exists.");
                 return;
             }
 
@@ -576,7 +566,7 @@
 
         document.getElementById('btn-update').addEventListener('click', () => {
             if (!targetSelectedId) {
-                pushStatus("Operation Denied: Choose a listing record via 'Edit' before attempting updates.");
+                pushStatus("Denied: Choose a record via 'Edit' first.");
                 return;
             }
 
@@ -584,7 +574,7 @@
             const yearValue = inputYear.value;
 
             if (!nameValue || !yearValue) {
-                pushStatus("Update Error: Input field parameters cannot be empty.");
+                pushStatus("Error: Fields cannot be empty.");
                 return;
             }
 
@@ -592,7 +582,7 @@
             if (targetIndex !== -1) {
                 studentsArray[targetIndex].name = nameValue;
                 studentsArray[targetIndex].year = yearValue;
-                pushStatus(`Record update confirmed for: ${nameValue}`, true);
+                pushStatus(`Updated: ${nameValue}`, true);
                 clearForm();
                 syncDatabase();
             }
@@ -600,7 +590,7 @@
 
         document.getElementById('btn-delete').addEventListener('click', () => {
             if (!targetSelectedId) {
-                pushStatus("Operation Denied: Select a data row target to perform deletion.");
+                pushStatus("Denied: Select a student row to delete.");
                 return;
             }
             triggerDirectDelete(targetSelectedId);
@@ -612,7 +602,6 @@
             renderRecords(e.target.value.trim());
         });
 
-        // Initialize First UI Paint Frame
         syncDatabase();
     </script>
 </body>
